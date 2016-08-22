@@ -5,6 +5,8 @@
  */
 package ejercicio;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author DanielDeJesus
@@ -50,7 +52,7 @@ public class Interfaz5 extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Tw Cen MT Condensed Extra Bold", 0, 14)); // NOI18N
         jLabel1.setText("Ejercicio Número 5: Hallar los descuentos y restarselo al sueldo base");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, -1, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, -1, -1));
 
         jLabel2.setText("Sueldo base:");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 60, -1, -1));
@@ -63,11 +65,15 @@ public class Interfaz5 extends javax.swing.JFrame {
         jPanel1.add(txtSueldoBase, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 60, 110, -1));
 
         jLabel3.setText("Descuento por ley politica publica:");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 170, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 180, -1));
+
+        txtDPoliticaPublica.setEditable(false);
         jPanel1.add(txtDPoliticaPublica, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 120, 80, -1));
 
         jLabel4.setText("Descuento por seguro forzoso:");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, -1, -1));
+
+        txtDSeguroForzoso.setEditable(false);
         jPanel1.add(txtDSeguroForzoso, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 180, 70, -1));
 
         jLabel5.setText("Descuento por seguro social: ");
@@ -75,14 +81,25 @@ public class Interfaz5 extends javax.swing.JFrame {
 
         jLabel6.setText("Descuento por caja de ahorro:");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 160, -1, -1));
-        jPanel1.add(txtDSeguroSocial, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 120, 70, 20));
+
+        txtDSeguroSocial.setEditable(false);
+        jPanel1.add(txtDSeguroSocial, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 120, 90, 30));
+
+        txtDCajaAhorro.setEditable(false);
         jPanel1.add(txtDCajaAhorro, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 180, 70, -1));
 
         jLabel7.setText("Total a pagar:");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 220, -1, -1));
+
+        txtTotalPagar.setEditable(false);
         jPanel1.add(txtTotalPagar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 220, 70, -1));
 
         jButton1.setText("Calcular");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 270, -1, -1));
 
         jButton2.setText("Borrar");
@@ -110,7 +127,7 @@ public class Interfaz5 extends javax.swing.JFrame {
     private void txtSueldoBaseKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSueldoBaseKeyTyped
         char c=evt.getKeyChar();
         
-        if(Character.isDigit(c)){
+        if(!Character.isDigit(c)){
             getToolkit().beep();
             
             evt.consume();
@@ -128,6 +145,42 @@ public class Interfaz5 extends javax.swing.JFrame {
         txtSueldoBase.requestFocusInWindow();
                 
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        String res1,res2,res3,res4,res5;
+        double sueldoB, op, op2, op3, op4, op5;
+       
+        if(txtSueldoBase.getText().trim().isEmpty()){
+            JOptionPane.showMessageDialog(this, "Digite el sueldo base", "Error", JOptionPane.ERROR_MESSAGE);
+            txtSueldoBase.requestFocusInWindow();
+            
+        }
+        
+        else{
+        sueldoB = Double.parseDouble(txtSueldoBase.getText());
+        
+        op = sueldoB * 0.01;
+        op2 = sueldoB * 0.04;
+        op3 = sueldoB * 0.005;
+        op4 = sueldoB * 0.05;
+        op5 = sueldoB - (op+op2+op3+op4);
+        
+        res1 = String.valueOf(op);
+        res2 = String.valueOf(op2);
+        res3 = String.valueOf(op3);
+        res4 = String.valueOf(op4);
+        res5 = String.valueOf(op5); 
+        
+        txtDPoliticaPublica.setText(res1);
+        txtDSeguroSocial.setText(res2);
+        txtDSeguroForzoso.setText(res3);
+        txtDCajaAhorro.setText(res4);
+        txtTotalPagar.setText(res5);
+        
+        }
+        
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
